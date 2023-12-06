@@ -1,16 +1,22 @@
 package main;
 
-public class Main {
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import view.RegisterView;
 
-	public Main() {
-		System.out.println("Test Push");
-		System.out.println("Marco is testing git push...");
-		System.out.println("Marco is testing git push again");
-		System.out.println("Marco is testing git push for the third time");
-	}
+public class Main extends Application{
 
 	public static void main(String[] args) {
-		new Main();
+		launch(args);
+	}
+
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		
+		primaryStage.setScene(new Scene(new RegisterView(this), 600, 600));
+		
+		primaryStage.show();
 	}
 
 }
