@@ -1,5 +1,6 @@
 package view;
 
+import controller.UserController;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -14,6 +15,7 @@ public class RegisterView extends BorderPane{
 	
 	public RegisterView(Main main) {
 		
+		UserController registController = new UserController();
 		VBox vbox = new VBox();
 		Label title = new Label("Register");
 		Label nameLbl = new Label("Name");
@@ -31,6 +33,10 @@ public class RegisterView extends BorderPane{
 		vbox.getChildren().addAll(title, nameLbl, nameFld, passLbl, passFld, confPassLbl, confPassFld, ageLbl, ageFld, registerBtn);
 		
 		title.setFont(Font.font("Arial", FontWeight.BOLD, 30));
+		
+		registerBtn.setOnMouseClicked(event ->{
+			registController.registerUser(nameFld.getText(), passFld.getText(), confPassFld.getText(), "Customer", ageFld.getText());
+		});
 		
 		setCenter(vbox);
 	}	

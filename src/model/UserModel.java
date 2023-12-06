@@ -8,7 +8,7 @@ public class UserModel {
 	
 	public Boolean registerUser(String name, String password, String confirm, String role, String age) {
 		
-		String query = String.format("INSERT INTO `users`(`UserName`, `Password`, `UserRole`, `UserAge`) VALUES ('%s','%s','%s','%d')", name, password, role, age);
+		String query = String.format("INSERT INTO `users`(`UserName`, `Password`, `UserRole`, `UserAge`) VALUES ('%s','%s','%s','%d')", name, password, role, Integer.parseInt(age));
 		
 		db.execute(query);
 		
