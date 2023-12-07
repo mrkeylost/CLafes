@@ -9,11 +9,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import main.Main;
+import javafx.stage.Stage;
 
 public class RegisterView extends BorderPane{
 	
-	public RegisterView(Main main) {
+	public RegisterView(Stage stage) {
 		
 		UserController registController = new UserController();
 		VBox vbox = new VBox();

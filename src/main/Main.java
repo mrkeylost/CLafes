@@ -3,7 +3,7 @@ package main;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import view.RegisterView;
+import view.MainMenu;
 
 public class Main extends Application{
 
@@ -14,7 +14,11 @@ public class Main extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
-		primaryStage.setScene(new Scene(new RegisterView(this), 600, 600));
+		MainMenu mainMenu = new MainMenu(primaryStage);
+		
+		primaryStage.setScene(new Scene(mainMenu.getBp(), 600, 600));
+		
+		//primaryStage.setScene(new Scene(new RegisterView(this), 600, 600));
 		
 		primaryStage.show();
 	}

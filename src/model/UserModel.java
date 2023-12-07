@@ -1,5 +1,7 @@
 package model;
 
+import java.sql.ResultSet;
+
 import database.Connect;
 
 public class UserModel {
@@ -13,6 +15,13 @@ public class UserModel {
 		db.execute(query);
 		
 		return true;
+	}
+	
+	public ResultSet loginUser(String name, String password) {
+		
+		String query = "SELECT * FROM users WHERE UserName='" + name + "' AND Password='" + password + "'";
+		
+		return db.selectData(query);
 	}
 	
 }

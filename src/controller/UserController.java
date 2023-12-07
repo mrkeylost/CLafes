@@ -1,5 +1,8 @@
 package controller;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import model.UserModel;
@@ -67,6 +70,32 @@ public class UserController {
 		}
 		
 		return userModel.registerUser(name, password, confirm, role, age);
+	}
+	
+	public Boolean loginUser(String name, String password) {
+		
+		ResultSet rs = userModel.loginUser(name, password);
+		
+		Boolean loginValid = null;
+		
+		try {
+			if(rs.next()) {
+				loginValid = true;
+			} else {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Login Invalid");
+				alert.setHeaderText("Username or Password Incorrect");
+				alert.showAndWait();
+				
+				loginValid = false;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return loginValid;
 	}
 	
 	
