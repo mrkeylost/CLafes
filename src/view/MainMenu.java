@@ -66,8 +66,9 @@ public class MainMenu extends BorderPane{
 			try {
 				if(loginValid.next()) {
 					String role = loginValid.getString("UserRole");
+					Integer id = loginValid.getInt("UserId");
 					
-					HomePage homePage = new HomePage(stage, role);
+					HomePage homePage = new HomePage(stage, role, id);
 				
 					stage.setScene(new Scene(homePage.getBp(), 600, 600));
 				} else {

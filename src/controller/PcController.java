@@ -21,7 +21,8 @@ public class PcController {
 			while(rs.next()) {
 				Integer pcId = rs.getInt("PcId");
 				String pcStatus = rs.getString("PcStatus");
-				pcData.add(new Pc(pcId, pcStatus));
+				String pcAvailability = rs.getString("PcAvailability");
+				pcData.add(new Pc(pcId, pcStatus, pcAvailability));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

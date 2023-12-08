@@ -6,7 +6,6 @@ import controller.PcController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -24,30 +23,29 @@ public class HomePage{
 	Stage stage;
 	Scene scene;
 	BorderPane bp;
-	VBox homeContainer;
-	Button bookPcBtn; 
+	VBox homeContainer; 
 	MenuBar navbar;
-	Menu bookPc, manageJob, viewBookedPc, viewJob;
-	MenuItem bookPcItem, manageJobItem, viewBookedPcItem, viewJobItem;
+	Menu bookPc, manageJob, viewBookedPc, viewJob, viewTransactionHistory, makeReport;
+	MenuItem bookPcItem, manageJobItem, viewBookedPcItem, viewJobItem, viewTransactionHistoryItem, makeReportItem;
 	
 	TableView<Pc> pcTableView;
 	TableColumn<Pc, Integer> colPcId;
-	TableColumn<Pc, String> colPcStatus;
+	TableColumn<Pc, String> colPcStatus, colPcAvailable;
 	List<Pc> pcData;
 	
-	public HomePage(Stage stage, String role) {
+	public HomePage(Stage stage, String role, int id) {
 		
-		initHomePage(role);
+		initHomePage(stage, role, id);
 		
-//		scene = new Scene(bp, 600, 600);
-//		
-//		this.stage = stage;
-//		this.stage.setScene(scene);
-//		this.stage.show();
+		scene = new Scene(bp, 600, 600);
+		
+		this.stage = stage;
+		this.stage.setScene(scene);
+		this.stage.show();
 	}
 	
 	public void viewAllPc() {
-		bp = new BorderPane();
+		//bp = new BorderPane();
 		
 		pcTableView = new TableView<>();
 		
@@ -57,8 +55,12 @@ public class HomePage{
 		colPcStatus = new TableColumn<>("PC Status");
 		colPcStatus.setCellValueFactory(new PropertyValueFactory<>("pcStatus"));
 		
+		colPcAvailable = new TableColumn<>("PC Booking Availability");
+		colPcAvailable.setCellValueFactory(new PropertyValueFactory<>("pcAvailability"));
+		
 		pcTableView.getColumns().add(colPcId);
 		pcTableView.getColumns().add(colPcStatus);
+		pcTableView.getColumns().add(colPcAvailable);
 		
 		bp.setCenter(pcTableView);
 		
@@ -68,23 +70,23 @@ public class HomePage{
 		pcTableView.setItems(pcDataList);
 	}
 	
-	public void initHomePage(String role) {
+	public void initHomePage(Stage stage, String role, int id) {
 		
 		switch(role) {
 		case "Admin":
-			initAdminHomePage();
+			initAdminHomePage(stage, role, id);
 			viewAllPc();
 			break;
 		case "Customer":
-			initCustomerHomePage();
+			initCustomerHomePage(stage, role, id);
 			viewAllPc();
 			break;
 		case "Technician":
-			initTechinicianHomePage();
+			initTechinicianHomePage(stage, role, id);
 			viewAllPc();
 			break;
 		case "Operator":
-			initOperatorHomePage();
+			initOperatorHomePage(stage, role, id);
 			viewAllPc();
 			break;
 		}
@@ -92,19 +94,40 @@ public class HomePage{
 		bp.setTop(navbar);
 	}
 	
-	public void initCustomerHomePage() {
+	public void initCustomerHomePage(Stage stage, String role, int id) {
 		bp = new BorderPane();
 		
 		navbar = new MenuBar();
 		bookPc = new Menu("Book PC");
+		viewTransactionHistory = new Menu("View Transaction History");
+		makeReport = new Menu("Make Report");
+		
 		bookPcItem = new MenuItem("Book PC");
+		viewTransactionHistoryItem = new MenuItem("View TransactionHistory");
+		makeReportItem = new MenuItem("Make Report");
 		
 		navbar.getMenus().add(bookPc);
+		navbar.getMenus().add(viewTransactionHistory);
+		navbar.getMenus().add(makeReport);
 		
 		bookPc.getItems().add(bookPcItem);
+		viewTransactionHistory.getItems().add(viewTransactionHistoryItem);
+		makeReport.getItems().add(makeReportItem);
+		
+		bookPcItem.setOnAction(event ->{
+			
+			try {
+				BookPcForm bookPcForm = new BookPcForm(stage, role, id);
+				
+				stage.setScene(new Scene(bookPcForm.getBp(), 600, 600));
+			} catch (Exception e) {
+				// TODO: handle exception
+				 e.printStackTrace();
+			}
+		});
 	}
 	
-	public void initAdminHomePage() {
+	public void initAdminHomePage(Stage stage, String role, int id) {
 		bp = new BorderPane();
 		
 		navbar = new MenuBar();
@@ -116,19 +139,24 @@ public class HomePage{
 		manageJob.getItems().add(manageJobItem);
 	}
 	
-	public void initOperatorHomePage() {
+	public void initOperatorHomePage(Stage stage, String role, int id) {
 		bp = new BorderPane();
 		
 		navbar = new MenuBar();
 		viewBookedPc = new Menu("View Booked PC");
+		makeReport = new Menu("Make Report");
+		
 		viewBookedPcItem = new MenuItem("View Booked PC");
+		makeReportItem = new MenuItem("Make Report");
 		
 		navbar.getMenus().add(viewBookedPc);
+		navbar.getMenus().add(makeReport);
 		
 		viewBookedPc.getItems().add(viewBookedPcItem);
+		makeReport.getItems().add(makeReportItem);
 	}
 
-	public void initTechinicianHomePage() {
+	public void initTechinicianHomePage(Stage stage, String role, int id) {
 		bp = new BorderPane();
 		
 		navbar = new MenuBar();

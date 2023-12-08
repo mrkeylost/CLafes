@@ -17,15 +17,16 @@ public class Main extends Application{
 		
 		MainMenu mainMenu = new MainMenu(primaryStage);
 		
-		primaryStage.setScene(new Scene(mainMenu.getBp(), 600, 600));
+		//primaryStage.setScene(new Scene(mainMenu.getBp(), 600, 600));
 		
 		//primaryStage.setScene(new Scene(new RegisterView(this), 600, 600));
 		
-//		String role = "Admin";
-//		
-//		new HomePage(primaryStage, role);
+		String role = "Customer";
+		Integer id = 9;
 		
-		primaryStage.show();
+		new HomePage(primaryStage, role, id);
+		
+		//primaryStage.show();
 	}
 
 }

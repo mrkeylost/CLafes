@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -28,7 +29,7 @@ public class RegisterView extends BorderPane{
 		TextField nameFld = new TextField();
 		PasswordField passFld = new PasswordField();
 		PasswordField confPassFld = new PasswordField();
-		TextField ageFld = new TextField();
+		Spinner<Integer> ageFld = new Spinner<>(1, 100, 13);
 		
 		Button registerBtn = new Button("Register");
 		
@@ -39,7 +40,7 @@ public class RegisterView extends BorderPane{
 		title.setFont(Font.font("Arial", FontWeight.BOLD, 30));
 		
 		registerBtn.setOnMouseClicked(event ->{
-			Boolean registerValid = userController.registerUser(nameFld.getText(), passFld.getText(), confPassFld.getText(), "Customer", ageFld.getText());
+			Boolean registerValid = userController.registerUser(nameFld.getText(), passFld.getText(), confPassFld.getText(), "Customer",  ageFld.getValue().toString());
 			
 			if(registerValid) {
 				stage.setScene(new Scene(mainMenu.getBp(), 600, 600));
