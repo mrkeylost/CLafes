@@ -9,6 +9,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -92,6 +94,11 @@ public class BookPcForm {
 		
 		booking.setOnMouseClicked(event ->{
 			bookingController.bookPc(pcIdFld.getText(), id.toString(), bookDate.getValue().toString());
+			
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Success");
+			alert.setHeaderText("Booking Success");
+			alert.showAndWait();
 		});
 		
 //		scene = new Scene(bp, 600, 600);

@@ -23,7 +23,7 @@ public class BookingController {
 	public Boolean bookPc(String pcId, String userId, String date) {
 		
 		if(!checkPc(pcId)) {
-			alert("PC Number not exist!");
+			alert("PC Number is not operationable!");
 			
 			return false;
 		}

@@ -37,15 +37,15 @@ public class HomePage{
 		
 		initHomePage(stage, role, id);
 		
-		scene = new Scene(bp, 600, 600);
-		
-		this.stage = stage;
-		this.stage.setScene(scene);
-		this.stage.show();
+//		scene = new Scene(bp, 600, 600);
+//		
+//		this.stage = stage;
+//		this.stage.setScene(scene);
+//		this.stage.show();
 	}
 	
 	public void viewAllPc() {
-		//bp = new BorderPane();
+		bp = new BorderPane();
 		
 		pcTableView = new TableView<>();
 		

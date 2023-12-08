@@ -2,11 +2,13 @@ package view;
 
 import controller.UserController;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -43,6 +45,11 @@ public class RegisterView extends BorderPane{
 			Boolean registerValid = userController.registerUser(nameFld.getText(), passFld.getText(), confPassFld.getText(), "Customer",  ageFld.getValue().toString());
 			
 			if(registerValid) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Success");
+				alert.setHeaderText("Registration Success");
+				alert.showAndWait();
+				
 				stage.setScene(new Scene(mainMenu.getBp(), 600, 600));
 			}
 		});
