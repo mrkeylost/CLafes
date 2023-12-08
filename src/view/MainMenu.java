@@ -1,7 +1,11 @@
 package view;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import controller.UserController;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
@@ -9,6 +13,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -28,16 +33,14 @@ public class MainMenu extends BorderPane{
 
 	public MainMenu(Stage stage) {
 		
-		UserController loginController = new UserController();
+		UserController userController = new UserController();
 		bp = new BorderPane();
 		navbar = new MenuBar();
 		register = new Menu("Register");
-		login = new Menu("Login");
 		
 		registerUser = new MenuItem("Register");
 		
 		navbar.getMenus().add(register);
-		navbar.getMenus().add(login);
 		
 		register.getItems().add(registerUser);
 		
@@ -58,10 +61,28 @@ public class MainMenu extends BorderPane{
 		bp.setCenter(container);
 		
 		loginBtn.setOnMouseClicked(event ->{
-			loginController.loginUser(nameFld.getText(), passFld.getText());
+			ResultSet loginValid = userController.loginUser(nameFld.getText(), passFld.getText());
+			
+			try {
+				if(loginValid.next()) {
+					String role = loginValid.getString("UserRole");
+					
+					HomePage homePage = new HomePage(stage, role);
+				
+					stage.setScene(new Scene(homePage.getBp(), 600, 600));
+				} else {
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Invalid Input");
+					alert.setHeaderText("Username or Password incorrect");
+					alert.showAndWait();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		});
 		
-		registerUser.setOnAction(event ->{
+		register.setOnAction(event ->{
 			stage.setScene(new Scene(new RegisterView(stage), 600, 600));
 		});
 	}

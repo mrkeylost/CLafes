@@ -1,6 +1,7 @@
 package view;
 
 import controller.UserController;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -15,7 +16,8 @@ public class RegisterView extends BorderPane{
 	
 	public RegisterView(Stage stage) {
 		
-		UserController registController = new UserController();
+		UserController userController = new UserController();
+		MainMenu mainMenu = new MainMenu(stage);
 		VBox vbox = new VBox();
 		Label title = new Label("Register");
 		Label nameLbl = new Label("Name");
@@ -30,12 +32,22 @@ public class RegisterView extends BorderPane{
 		
 		Button registerBtn = new Button("Register");
 		
-		vbox.getChildren().addAll(title, nameLbl, nameFld, passLbl, passFld, confPassLbl, confPassFld, ageLbl, ageFld, registerBtn);
+		Button loginBtn = new Button("Login");
+		
+		vbox.getChildren().addAll(title, nameLbl, nameFld, passLbl, passFld, confPassLbl, confPassFld, ageLbl, ageFld, registerBtn, loginBtn);
 		
 		title.setFont(Font.font("Arial", FontWeight.BOLD, 30));
 		
 		registerBtn.setOnMouseClicked(event ->{
-			registController.registerUser(nameFld.getText(), passFld.getText(), confPassFld.getText(), "Customer", ageFld.getText());
+			Boolean registerValid = userController.registerUser(nameFld.getText(), passFld.getText(), confPassFld.getText(), "Customer", ageFld.getText());
+			
+			if(registerValid) {
+				stage.setScene(new Scene(mainMenu.getBp(), 600, 600));
+			}
+		});
+		
+		loginBtn.setOnMouseClicked(event ->{
+			stage.setScene(new Scene(mainMenu.getBp(), 600, 600));
 		});
 		
 		setCenter(vbox);
