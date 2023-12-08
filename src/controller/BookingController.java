@@ -28,6 +28,12 @@ public class BookingController {
 			return false;
 		}
 		
+		if(!checkBookingdate(pcId, date)) {
+			alert("PC already booked");
+			
+			return false;
+		}
+		
 		return bookingModel.bookPc(pcId, userId, date);
 	}
 	
@@ -50,6 +56,28 @@ public class BookingController {
 		}
 		
 		return false;
+	}
+	
+	public Boolean checkBookingdate(String id, String date) {
+		
+		ResultSet rs = bookingModel.getBookingDate(id, date);
+		
+		try {
+			while(rs.next()) {
+				String bookedDate = rs.getDate("BookedDate").toString();
+				Integer pcId = rs.getInt("PcId");
+				
+				if(bookedDate.equals(date) && id.equals(pcId.toString())) {
+					return false;
+				}
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return true;
 	}
 	
 }

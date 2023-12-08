@@ -58,7 +58,7 @@ public class BookPcForm {
 		colPcStatus = new TableColumn<>("PC Status");
 		colPcStatus.setCellValueFactory(new PropertyValueFactory<>("pcStatus"));
 		
-		colPcAvailable = new TableColumn<>("PC Booking Availability");
+		colPcAvailable = new TableColumn<>("PC Availability");
 		colPcAvailable.setCellValueFactory(new PropertyValueFactory<>("pcAvailability"));
 		
 		pcTableView.getColumns().add(colPcId);
@@ -93,12 +93,14 @@ public class BookPcForm {
 		bp.setCenter(container);
 		
 		booking.setOnMouseClicked(event ->{
-			bookingController.bookPc(pcIdFld.getText(), id.toString(), bookDate.getValue().toString());
+			Boolean bookValid = bookingController.bookPc(pcIdFld.getText(), id.toString(), bookDate.getValue().toString());
 			
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Success");
-			alert.setHeaderText("Booking Success");
-			alert.showAndWait();
+			if(bookValid) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Success");
+				alert.setHeaderText("Booking Success");
+				alert.showAndWait();
+			}
 		});
 		
 //		scene = new Scene(bp, 600, 600);

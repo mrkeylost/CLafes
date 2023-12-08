@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.ResultSet;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,6 +32,13 @@ public class BookingModel {
 			
 			return false;
 		}
+	}
+	
+	public ResultSet getBookingDate(String id, String date) {
+		
+		String query = "SELECT * FROM `pcbook` WHERE BookedDate = '" + date + "' AND PcId='" + Integer.parseInt(id) + "'";
+		
+		return db.selectData(query);
 	}
 	
 }
