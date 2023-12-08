@@ -37,11 +37,11 @@ public class HomePage{
 		
 		initHomePage(stage, role, id);
 		
-//		scene = new Scene(bp, 600, 600);
-//		
-//		this.stage = stage;
-//		this.stage.setScene(scene);
-//		this.stage.show();
+		scene = new Scene(bp, 600, 600);
+		
+		this.stage = stage;
+		this.stage.setScene(scene);
+		this.stage.show();
 	}
 	
 	public void viewAllPc() {
@@ -124,6 +124,12 @@ public class HomePage{
 				// TODO: handle exception
 				 e.printStackTrace();
 			}
+		});
+		
+		makeReportItem.setOnAction(event ->{
+			MakeReportForm makeReportForm = new MakeReportForm(stage, role);
+			
+			stage.setScene(new Scene(makeReportForm.getBp(), 600, 600));
 		});
 	}
 	
