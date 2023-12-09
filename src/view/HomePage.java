@@ -117,7 +117,7 @@ public class HomePage{
 		});
 		
 		viewTransactionHistoryItem.setOnAction(event ->{
-			ViewCustomerTransactionHistory viewCustomerTransactionHistory = new ViewCustomerTransactionHistory(stage, id);
+			ViewCustomerTransactionHistory viewCustomerTransactionHistory = new ViewCustomerTransactionHistory(stage, role, id);
 			
 			stage.setScene(new Scene(viewCustomerTransactionHistory.getBp(), 600, 600));
 		});

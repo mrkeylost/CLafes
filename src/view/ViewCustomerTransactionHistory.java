@@ -5,10 +5,13 @@ import java.util.List;
 import controller.TransactionController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Transaction;
 
@@ -22,7 +25,10 @@ public class ViewCustomerTransactionHistory {
 	TableColumn<Transaction, String> colBookedTime;
 	List<Transaction> transacionHistoryData;
 	
-	public ViewCustomerTransactionHistory(Stage stage, Integer id) {
+	VBox vbox, container;
+	Button back; 
+	
+	public ViewCustomerTransactionHistory(Stage stage, String role, Integer id) {
 		
 		bp = new BorderPane();
 		
@@ -41,13 +47,28 @@ public class ViewCustomerTransactionHistory {
 		viewCustomerHistory.getColumns().add(colPcId);
 		viewCustomerHistory.getColumns().add(colBookedTime);
 		
-		bp.setCenter(viewCustomerHistory);
-		
 		transacionHistoryData = transactionController.getUserTransactionDetail(id.toString());
 		
 		ObservableList<Transaction> transactionDataList = FXCollections.observableArrayList(transacionHistoryData);
 		viewCustomerHistory.setItems(transactionDataList);
 		
+		vbox = new VBox();
+		back = new Button("Back to Home");
+		
+		vbox.getChildren().addAll(back);
+		
+		container = new VBox();
+		
+		container.getChildren().addAll(viewCustomerHistory, vbox);
+		
+		bp.setCenter(container);
+		
+		back.setOnMouseClicked(event ->{
+			
+			HomePage homePage = new HomePage(stage, role, id);
+			
+			stage.setScene(new Scene(homePage.getBp(), 600, 600));
+		});
 	}
 
 	public BorderPane getBp() {
