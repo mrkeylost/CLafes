@@ -24,4 +24,11 @@ public class UserModel {
 		return db.selectData(query);
 	}
 	
+	public ResultSet getAllUser() {
+
+		String query = "SELECT * FROM `users`";
+
+		return db.selectData(query);
+	}
+	
 }
