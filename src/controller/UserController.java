@@ -1,6 +1,7 @@
 package controller;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -27,6 +28,12 @@ public class UserController {
 		
 		if(name.length() < 7) {
 			alert("Name must has minimum 7 characters");
+			
+			return false;
+		}
+		
+		if(!checkUniqueUserName(name)) {
+			alert("Name already used");
 			
 			return false;
 		}
@@ -84,5 +91,25 @@ public class UserController {
 //		}
 		
 		return rs;
+	}
+	
+	public Boolean checkUniqueUserName(String name) {
+		
+		ResultSet rs = userModel.getAllUser();
+		
+		try {
+			while(rs.next()) {
+				String userName = rs.getString("UserName");
+				
+				if(userName.equals(name)) {
+					return false;
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return true;
 	}
 }
