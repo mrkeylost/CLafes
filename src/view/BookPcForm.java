@@ -35,12 +35,12 @@ public class BookPcForm {
 	VBox container, bookForm;
 	Label bookFormTitle, pcIdLbl, dateLbl;
 	TextField pcIdFld;
-	Button booking;
+	Button booking, back;
 	DatePicker bookDate;
 	
 	TableView<Pc> pcTableView;
 	TableColumn<Pc, Integer> colPcId;
-	TableColumn<Pc, String> colPcStatus, colPcAvailable;
+	TableColumn<Pc, String> colPcStatus;
 	List<Pc> pcData;
 	
 	public BookPcForm(Stage stage, String role, Integer id) {
@@ -58,12 +58,8 @@ public class BookPcForm {
 		colPcStatus = new TableColumn<>("PC Status");
 		colPcStatus.setCellValueFactory(new PropertyValueFactory<>("pcStatus"));
 		
-		colPcAvailable = new TableColumn<>("PC Availability");
-		colPcAvailable.setCellValueFactory(new PropertyValueFactory<>("pcAvailability"));
-		
 		pcTableView.getColumns().add(colPcId);
 		pcTableView.getColumns().add(colPcStatus);
-		pcTableView.getColumns().add(colPcAvailable);
 		
 		pcData = pcController.viewAllPc();
 		
@@ -80,8 +76,9 @@ public class BookPcForm {
 		bookDate = new DatePicker();
 		
 		booking = new Button("Book PC");
+		back = new Button("Back to Home");
 		
-		bookForm.getChildren().addAll(bookFormTitle, pcIdLbl, pcIdFld, dateLbl, bookDate, booking);
+		bookForm.getChildren().addAll(bookFormTitle, pcIdLbl, pcIdFld, dateLbl, bookDate, booking, back);
 		
 		bookDate.setEditable(false);
 		bookDate.setValue(LocalDate.now());
@@ -101,6 +98,13 @@ public class BookPcForm {
 				alert.setHeaderText("Booking Success");
 				alert.showAndWait();
 			}
+		});
+		
+		back.setOnMouseClicked(event ->{
+			
+			HomePage homePage = new HomePage(stage, role, id);
+			
+			stage.setScene(new Scene(homePage.getBp(), 600, 600));
 		});
 		
 //		scene = new Scene(bp, 600, 600);

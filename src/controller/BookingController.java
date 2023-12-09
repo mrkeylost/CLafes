@@ -23,7 +23,7 @@ public class BookingController {
 	public Boolean bookPc(String pcId, String userId, String date) {
 		
 		if(!checkPc(pcId)) {
-			alert("PC Number is not operationable!");
+			alert("PC is not operationable!");
 			
 			return false;
 		}
@@ -44,9 +44,9 @@ public class BookingController {
 		try {
 			while(rs.next()) {
 				Integer pcIdCheck = rs.getInt("PcId");
-				String pcAvailability = rs.getString("PcAvailability");
+				String pcStatus = rs.getString("PcStatus"); 
 				
-				if(pcId.equals(pcIdCheck.toString()) && pcAvailability.equals("ON")) {
+				if(pcId.equals(pcIdCheck.toString()) && pcStatus.equals("Usable")) {
 					return true;
 				}
 			}

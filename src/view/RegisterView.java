@@ -17,25 +17,33 @@ import javafx.stage.Stage;
 
 public class RegisterView extends BorderPane{
 	
+	BorderPane bp;
+	VBox vbox;
+	Label title, nameLbl, passLbl, confPassLbl, ageLbl;
+	TextField nameFld;
+	PasswordField passFld, confPassFld;
+	Spinner<Integer> ageFld;
+	Button registerBtn, loginBtn;
+	
 	public RegisterView(Stage stage) {
 		
 		UserController userController = new UserController();
 		MainMenu mainMenu = new MainMenu(stage);
-		VBox vbox = new VBox();
-		Label title = new Label("Register");
-		Label nameLbl = new Label("Name");
-		Label passLbl = new Label("Password");
-		Label confPassLbl = new Label("Confirm Password");
-		Label ageLbl = new Label("Age");
+		vbox = new VBox();
+		title = new Label("Register");
+		nameLbl = new Label("Name");
+		passLbl = new Label("Password");
+		confPassLbl = new Label("Confirm Password");
+		ageLbl = new Label("Age");
 		
-		TextField nameFld = new TextField();
-		PasswordField passFld = new PasswordField();
-		PasswordField confPassFld = new PasswordField();
-		Spinner<Integer> ageFld = new Spinner<>(1, 100, 13);
+		nameFld = new TextField();
+		passFld = new PasswordField();
+		confPassFld = new PasswordField();
+		ageFld = new Spinner<>(1, 100, 13);
 		
-		Button registerBtn = new Button("Register");
+		registerBtn = new Button("Register");
 		
-		Button loginBtn = new Button("Login");
+		loginBtn = new Button("Login");
 		
 		vbox.getChildren().addAll(title, nameLbl, nameFld, passLbl, passFld, confPassLbl, confPassFld, ageLbl, ageFld, registerBtn, loginBtn);
 		

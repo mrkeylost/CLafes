@@ -1,6 +1,7 @@
 package view;
 
 import controller.ReportController;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,9 +20,9 @@ public class MakeReportForm {
 	VBox reportContainer;
 	Label makeReportTitle, pcIdLbl, reportNoteLbl;
 	TextField pcIdFld, reportNoteFld;
-	Button report;
+	Button report, back;
 
-	public MakeReportForm(Stage stage, String role) {
+	public MakeReportForm(Stage stage, String role, int id) {
 		
 		bp = new BorderPane();
 		reportContainer = new VBox();
@@ -34,8 +35,9 @@ public class MakeReportForm {
 		reportNoteFld = new TextField();
 		
 		report = new Button("Report");
+		back = new Button("Back to Home");
 		
-		reportContainer.getChildren().addAll(makeReportTitle, pcIdLbl, pcIdFld, reportNoteLbl, reportNoteFld, report);
+		reportContainer.getChildren().addAll(makeReportTitle, pcIdLbl, pcIdFld, reportNoteLbl, reportNoteFld, report, back);
 		
 		makeReportTitle.setFont(Font.font("Arial", FontWeight.BOLD, 30));
 		
@@ -50,6 +52,13 @@ public class MakeReportForm {
 				alert.setHeaderText("Report submitted");
 				alert.showAndWait();
 			}
+		});
+		
+		back.setOnMouseClicked(event ->{
+			
+			HomePage homePage = new HomePage(stage, role, id);
+			
+			stage.setScene(new Scene(homePage.getBp(), 600, 600));
 		});
 	}
 	

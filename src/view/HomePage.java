@@ -30,18 +30,12 @@ public class HomePage{
 	
 	TableView<Pc> pcTableView;
 	TableColumn<Pc, Integer> colPcId;
-	TableColumn<Pc, String> colPcStatus, colPcAvailable;
+	TableColumn<Pc, String> colPcStatus;
 	List<Pc> pcData;
 	
 	public HomePage(Stage stage, String role, int id) {
 		
 		initHomePage(stage, role, id);
-		
-		scene = new Scene(bp, 600, 600);
-		
-		this.stage = stage;
-		this.stage.setScene(scene);
-		this.stage.show();
 	}
 	
 	public void viewAllPc() {
@@ -55,12 +49,8 @@ public class HomePage{
 		colPcStatus = new TableColumn<>("PC Status");
 		colPcStatus.setCellValueFactory(new PropertyValueFactory<>("pcStatus"));
 		
-		colPcAvailable = new TableColumn<>("PC Booking Availability");
-		colPcAvailable.setCellValueFactory(new PropertyValueFactory<>("pcAvailability"));
-		
 		pcTableView.getColumns().add(colPcId);
 		pcTableView.getColumns().add(colPcStatus);
-		pcTableView.getColumns().add(colPcAvailable);
 		
 		bp.setCenter(pcTableView);
 		
@@ -126,8 +116,14 @@ public class HomePage{
 			}
 		});
 		
+		viewTransactionHistoryItem.setOnAction(event ->{
+			ViewCustomerTransactionHistory viewCustomerTransactionHistory = new ViewCustomerTransactionHistory(stage, id);
+			
+			stage.setScene(new Scene(viewCustomerTransactionHistory.getBp(), 600, 600));
+		});
+		
 		makeReportItem.setOnAction(event ->{
-			MakeReportForm makeReportForm = new MakeReportForm(stage, role);
+			MakeReportForm makeReportForm = new MakeReportForm(stage, role, id);
 			
 			stage.setScene(new Scene(makeReportForm.getBp(), 600, 600));
 		});
@@ -160,6 +156,12 @@ public class HomePage{
 		
 		viewBookedPc.getItems().add(viewBookedPcItem);
 		makeReport.getItems().add(makeReportItem);
+		
+		makeReportItem.setOnAction(event ->{
+			MakeReportForm makeReportForm = new MakeReportForm(stage, role, id);
+			
+			stage.setScene(new Scene(makeReportForm.getBp(), 600, 600));
+		});
 	}
 
 	public void initTechinicianHomePage(Stage stage, String role, int id) {
