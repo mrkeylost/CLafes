@@ -32,15 +32,8 @@ public class BookingController {
 		
 		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		
-		try {
-			if(LocalDate.parse(date, dateFormat).isBefore(LocalDate.now())) {
-				alert("Date cannot be less than today");
-				
-				return false;
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(LocalDate.parse(date, dateFormat).isBefore(LocalDate.now())) {
+			alert("Date cannot be less than today");
 			
 			return false;
 		}

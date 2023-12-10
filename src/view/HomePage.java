@@ -105,15 +105,10 @@ public class HomePage{
 		makeReport.getItems().add(makeReportItem);
 		
 		bookPcItem.setOnAction(event ->{
+			BookPcForm bookPcForm = new BookPcForm(stage, role, id);
 			
-			try {
-				BookPcForm bookPcForm = new BookPcForm(stage, role, id);
-				
-				stage.setScene(new Scene(bookPcForm.getBp(), 600, 600));
-			} catch (Exception e) {
-				// TODO: handle exception
-				 e.printStackTrace();
-			}
+			stage.setScene(new Scene(bookPcForm.getBp(), 600, 600));
+			
 		});
 		
 		viewTransactionHistoryItem.setOnAction(event ->{

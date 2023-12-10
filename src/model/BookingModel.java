@@ -13,19 +13,13 @@ public class BookingModel {
 	public Boolean bookPc(String pcId, String userId, String date) {
 		
 		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+				
+		String query = String.format("INSERT INTO `pcbook`(`PcId`, `UserId`, `BookedDate`) VALUES ('%s','%s','%s')", Integer.parseInt(pcId), Integer.parseInt(userId), LocalDate.parse(date, dateFormat));
 		
-		try {			
-			String query = String.format("INSERT INTO `pcbook`(`PcId`, `UserId`, `BookedDate`) VALUES ('%s','%s','%s')", Integer.parseInt(pcId), Integer.parseInt(userId), LocalDate.parse(date, dateFormat));
-			
-			db.execute(query);
-			
-			return true;
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			
-			return false;
-		}
+		db.execute(query);
+		
+		return true;
+		
 	}
 	
 	public ResultSet getBookingDate(String id, String date) {
