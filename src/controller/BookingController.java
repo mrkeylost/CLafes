@@ -2,6 +2,8 @@ package controller;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -24,6 +26,21 @@ public class BookingController {
 		
 		if(!checkPc(pcId)) {
 			alert("PC is not operationable!");
+			
+			return false;
+		}
+		
+		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		
+		try {
+			if(LocalDate.parse(date, dateFormat).isBefore(LocalDate.now())) {
+				alert("Date cannot be less than today");
+				
+				return false;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 			
 			return false;
 		}
@@ -79,5 +96,4 @@ public class BookingController {
 		
 		return true;
 	}
-	
 }

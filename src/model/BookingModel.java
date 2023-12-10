@@ -1,9 +1,8 @@
 package model;
 
 import java.sql.ResultSet;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import database.Connect;
 
@@ -13,20 +12,15 @@ public class BookingModel {
 	
 	public Boolean bookPc(String pcId, String userId, String date) {
 		
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		
-		try {
-			Date parseDate = dateFormat.parse(date);
-			
-			SimpleDateFormat outDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-			String bookDate = outDateFormat.format(parseDate);
-			
-			String query = String.format("INSERT INTO `pcbook`(`PcId`, `UserId`, `BookedDate`) VALUES ('%s','%s','%s')", Integer.parseInt(pcId), Integer.parseInt(userId), bookDate);
+		try {			
+			String query = String.format("INSERT INTO `pcbook`(`PcId`, `UserId`, `BookedDate`) VALUES ('%s','%s','%s')", Integer.parseInt(pcId), Integer.parseInt(userId), LocalDate.parse(date, dateFormat));
 			
 			db.execute(query);
 			
 			return true;
-		} catch (ParseException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			
