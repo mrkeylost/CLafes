@@ -31,4 +31,17 @@ public class UserModel {
 		return db.selectData(query);
 	}
 	
+	public ResultSet getStaffList() {
+		
+		String query = "SELECT UserId, UserName, UserRole FROM users WHERE UserRole != 'Customer'";
+		
+		return db.selectData(query);
+	}
+	
+	public void ChangeUserRole(int userId, String RoleName) {
+		String query = String.format("UPDATE users SET UserRole = '%s' WHERE UserId = %d", RoleName, userId);
+		
+		 db.execUpdate(query);
+	}
+	
 }

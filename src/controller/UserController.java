@@ -2,9 +2,12 @@ package controller;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Vector;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import model.User;
 import model.UserModel;
 
 public class UserController {
@@ -93,5 +96,31 @@ public class UserController {
 		}
 
 		return true;
+	}
+	
+	public List<User> getAllStaff(){
+		
+		Vector<User> staffList = new Vector<>();
+		
+		ResultSet rs = userModel.getStaffList();
+		
+		try {
+			while(rs.next()) {
+				Integer userId = rs.getInt("UserId");
+				String userName = rs.getString("UserName");
+				String userRole = rs.getString("UserRole");
+				
+				staffList.add(new User(userId,userName, userRole));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return staffList;
+		
+	}
+	
+	public void ChangeRoleUser(int userId, String roleName) {
+		userModel.ChangeUserRole(userId, roleName);
 	}
 }

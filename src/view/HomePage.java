@@ -25,8 +25,8 @@ public class HomePage{
 	BorderPane bp;
 	VBox homeContainer; 
 	MenuBar navbar;
-	Menu bookPc, manageJob, viewBookedPc, viewJob, viewTransactionHistory, makeReport;
-	MenuItem bookPcItem, manageJobItem, viewBookedPcItem, viewJobItem, viewTransactionHistoryItem, makeReportItem;
+	Menu bookPc, manageJob, viewBookedPc, viewJob, viewTransactionHistory, makeReport, viewAllStaff;
+	MenuItem bookPcItem, manageJobItem, viewBookedPcItem, viewJobItem, viewTransactionHistoryItem, makeReportItem, viewAllStaffItem;
 	
 	TableView<Pc> pcTableView;
 	TableColumn<Pc, Integer> colPcId;
@@ -130,9 +130,19 @@ public class HomePage{
 		navbar = new MenuBar();
 		manageJob = new Menu("Manage Job");
 		manageJobItem = new MenuItem("Manage Job");
+		viewAllStaff = new Menu("View All Staff");
 		
+		viewAllStaffItem = new MenuItem("View All Staff");
 		navbar.getMenus().add(manageJob);
+		navbar.getMenus().add(viewAllStaff);
 		
+		viewAllStaff.getItems().add(viewAllStaffItem);
+		
+		viewAllStaffItem.setOnAction(e -> {
+			ViewAllStaff viewAllStaff = new ViewAllStaff(stage, role, id);
+			
+			stage.setScene(new Scene(viewAllStaff.getBp(), 600, 600));
+		});
 		manageJob.getItems().add(manageJobItem);
 	}
 	
