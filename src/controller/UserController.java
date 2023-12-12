@@ -120,7 +120,20 @@ public class UserController {
 		
 	}
 	
-	public void ChangeRoleUser(int userId, String roleName) {
+	public Boolean ChangeRoleUser(int userId, String roleName) {
+		if(roleName.isEmpty()) {
+			alert("Role field can't empty");
+			
+			return false;
+		}
+		
+		if(!roleName.equals("Customer") && !roleName.equals("Admin") && !roleName.equals("Operator") && !roleName.equals("Computer Technician")) {
+			alert("Role must be either “Admin”, “Customer”, “Operator”, or “Computer Technician” ");
+			return false;
+		}
+		
 		userModel.ChangeUserRole(userId, roleName);
+		
+		return true;
 	}
 }

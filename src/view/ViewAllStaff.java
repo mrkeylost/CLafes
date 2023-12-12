@@ -38,7 +38,7 @@ public class ViewAllStaff {
 		bp = new BorderPane();
 		container = new VBox();
 		container.setAlignment(Pos.TOP_LEFT);
-		
+
 		back = new Button("Back to Home");
 		back.setOnMouseClicked(event -> {
 
@@ -46,7 +46,7 @@ public class ViewAllStaff {
 
 			stage.setScene(new Scene(homePage.getBp(), 600, 600));
 		});
-		
+
 		userView = new TableView<>();
 
 		userName = new TableColumn<>("User Name");
@@ -83,21 +83,18 @@ public class ViewAllStaff {
 			changeButton.setOnAction(event -> {
 				User user = getTableView().getItems().get(getIndex());
 				userId = user.getUserId();
-				List<String> choices = new ArrayList<>();
-				choices.add("Admin");
-				choices.add("Operator");
-				choices.add("Computer Technician");
-
-				ChoiceDialog<String> dialog = new ChoiceDialog<>(user.getUserRole(), choices);
+				newRole = user.getUserRole();
+				TextInputDialog dialog = new TextInputDialog(user.getUserRole());
 				dialog.setTitle("Change Role");
+				dialog.setHeaderText("Enter new role:");
 				dialog.setContentText("Role:");
-				Optional<String> result = dialog.showAndWait();
-				result.ifPresent(selectedChoice -> {
-					newRole = selectedChoice;
-				});
-				staff.ChangeRoleUser(userId, newRole);
 
-				refreshView();
+				Optional<String> result = dialog.showAndWait();
+				result.ifPresent(newRole -> {
+					if(staff.ChangeRoleUser(userId, newRole)) {
+						refreshView();
+					}
+				});
 			});
 		}
 
