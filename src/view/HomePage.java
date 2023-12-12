@@ -71,7 +71,7 @@ public class HomePage{
 			initCustomerHomePage(stage, role, id);
 			viewAllPc();
 			break;
-		case "Technician":
+		case "Computer Technician":
 			initTechinicianHomePage(stage, role, id);
 			viewAllPc();
 			break;
@@ -152,6 +152,12 @@ public class HomePage{
 		viewBookedPc.getItems().add(viewBookedPcItem);
 		makeReport.getItems().add(makeReportItem);
 		
+		viewBookedPcItem.setOnAction(event ->{
+			ViewBookedPC viewAllBookedPC = new ViewBookedPC(stage, role, id);
+			
+			stage.setScene(new Scene(viewAllBookedPC.getBp(), 600, 600));
+		});
+		
 		makeReportItem.setOnAction(event ->{
 			MakeReportForm makeReportForm = new MakeReportForm(stage, role, id);
 			
@@ -164,11 +170,17 @@ public class HomePage{
 		
 		navbar = new MenuBar();
 		viewJob = new Menu("View Job");
-		viewJobItem = new MenuItem("View Job Item");
+		viewJobItem = new MenuItem("View Job");
 		
 		navbar.getMenus().add(viewJob);
 		
 		viewJob.getItems().add(viewJobItem);
+		
+		viewJobItem.setOnAction(event ->{
+			ViewTechnicianJob viewTechnicianJob = new ViewTechnicianJob(stage, id, role);
+			
+			stage.setScene(new Scene(viewTechnicianJob.getBp(), 600, 600));
+		});
 	}
 
 	public BorderPane getBp() {

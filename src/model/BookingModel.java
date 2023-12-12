@@ -29,4 +29,23 @@ public class BookingModel {
 		return db.selectData(query);
 	}
 	
+	public ResultSet getAllPcBookedData() {
+		
+		String query = 	"SELECT pb.BookId, pb.PcId, u.UserName, pb.BookedDate FROM pcbook pb\r\n" + 
+						"JOIN users u \r\n" + 
+						"ON pb.UserId = u.UserId";
+		
+		
+		return db.selectData(query);
+	}
+	
+	public Boolean deleteBookData(String bookId) {
+		
+		String query = "DELETE FROM `pcbook` WHERE BookId = '" + Integer.parseInt(bookId) + "'";
+		
+		db.execute(query);
+		
+		return true;
+	}
+	
 }
