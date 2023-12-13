@@ -120,19 +120,59 @@ public class UserController {
 		
 	}
 	
-	public Boolean ChangeRoleUser(int userId, String roleName) {
+	public Boolean checkUniqeUserId(String userId) {
+
+		ResultSet rs = userModel.getAllUser();
+
+		try {
+			while(rs.next()) {
+				String id = rs.getString("UserId");
+
+				if(id.equals(userId)) {
+					return false;
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return true;
+	}
+	
+	public void ChangeRoleUser(String userId, String roleName) {
+		if(userId.isEmpty()) {
+			alert("Select the user first!");
+			
+			return;
+		}
+		
+		if(checkUniqeUserId(userId)) {
+			alert("User id not found");
+			
+			return;
+		}
+		
 		if(roleName.isEmpty()) {
 			alert("Role field can't empty");
 			
-			return false;
+			return;
 		}
 		
-		if(!roleName.equals("Customer") && !roleName.equals("Admin") && !roleName.equals("Operator") && !roleName.equals("Computer Technician")) {
-			alert("Role must be either “Admin”, “Customer”, “Operator”, or “Computer Technician” ");
-			return false;
+		if(!roleName.equals("Admin") && !roleName.equals("Operator") && !roleName.equals("Computer Technician")) {
+			alert("Role must be either “Admin”, “Operator”, or “Computer Technician” ");
+			return;
 		}
 		
 		userModel.ChangeUserRole(userId, roleName);
+		
+	}
+	
+	public Boolean checkRoleTechnician(String userId) {
+		if(!userModel.isRoleTechnician(userId)) {
+			
+			return false;
+		}
 		
 		return true;
 	}

@@ -1,7 +1,6 @@
 package view;
 
 import java.util.List;
-import java.util.Optional;
 
 import controller.PcController;
 import javafx.collections.FXCollections;
@@ -14,7 +13,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -31,7 +29,7 @@ public class HomePage {
 	MenuBar navbar;
 	Menu bookPc, manageJob, viewBookedPc, viewJob, viewTransactionHistory, makeReport, viewAllStaff, viewAllPc;
 	MenuItem bookPcItem, manageJobItem, viewBookedPcItem, viewJobItem, viewTransactionHistoryItem, makeReportItem,
-			viewAllStaffItem, viewPcDetail;
+			viewAllStaffItem, viewPcDetail, viewAllPcItem;
 
 	TableView<Pc> pcTableView;
 	TableColumn<Pc, Integer> colPcId;
@@ -47,6 +45,7 @@ public class HomePage {
 		bp = new BorderPane();
 		VBox container = new VBox();
 		TextField selectedField = new TextField();
+		selectedField.setEditable(false);
 		Button addPCButton = new Button("Add PC");
 		Button deletePCButton = new Button("Delete PC");
 		Button updatePCButton = new Button("Update PC");
@@ -62,7 +61,6 @@ public class HomePage {
 		pcTableView.getColumns().add(colPcId);
 		pcTableView.getColumns().add(colPcStatus);
 
-		container.getChildren().addAll(pcTableView, selectedField, addPCButton, deletePCButton, updatePCButton);
 
 		pcData = pcController.viewAllPc();
 
@@ -70,6 +68,7 @@ public class HomePage {
 		pcTableView.setItems(pcDataList);
 
 		if (role.equals("Admin")) {
+			container.getChildren().addAll(pcTableView, selectedField, addPCButton, deletePCButton, updatePCButton);
 			bp.setCenter(container);
 			
 			pcTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -83,13 +82,13 @@ public class HomePage {
 			});
 			
 			addPCButton.setOnAction(e -> {
-				AddPCForm addPCForm = new AddPCForm();
+				new AddPCForm();
 				refetchPcData();
 			});
 			
 			updatePCButton.setOnAction(e -> {
 				String pcId = selectedField.getText();
-				UpdatePCForm updatePcForm = new UpdatePCForm(pcId);
+				new UpdatePCForm(pcId);
 				selectedField.setText("");
 				refetchPcData();
 				
@@ -103,7 +102,6 @@ public class HomePage {
 			});
 			
 		} else {
-
 			bp.setCenter(pcTableView);
 		}
 
@@ -142,7 +140,7 @@ public class HomePage {
 		viewTransactionHistory = new Menu("View Transaction History");
 		makeReport = new Menu("Make Report");
 
-		viewPcDetail = new MenuItem("View PC Detail");
+		viewAllPcItem = new MenuItem("View All PC");
 		bookPcItem = new MenuItem("Book PC");
 		viewTransactionHistoryItem = new MenuItem("View TransactionHistory");
 		makeReportItem = new MenuItem("Make Report");
@@ -155,7 +153,7 @@ public class HomePage {
 		bookPc.getItems().add(bookPcItem);
 		viewTransactionHistory.getItems().add(viewTransactionHistoryItem);
 		makeReport.getItems().add(makeReportItem);
-		viewAllPc.getItems().add(viewPcDetail);
+		viewAllPc.getItems().add(viewAllPcItem);
 
 		bookPcItem.setOnAction(event -> {
 			BookPcForm bookPcForm = new BookPcForm(stage, role, id);
@@ -176,7 +174,7 @@ public class HomePage {
 
 			stage.setScene(new Scene(makeReportForm.getBp(), 600, 600));
 		});
-		viewPcDetail.setOnAction(e -> {
+		viewAllPcItem.setOnAction(e -> {
 			viewAllPc(role);
 		});
 	}
@@ -189,7 +187,8 @@ public class HomePage {
 		manageJob = new Menu("Manage Job");
 		manageJobItem = new MenuItem("Manage Job");
 		viewAllStaff = new Menu("View All Staff");
-
+		
+		viewAllPcItem = new MenuItem("View All PC");
 		viewPcDetail = new MenuItem("View PC Detail");
 		viewAllStaffItem = new MenuItem("View All Staff");
 
@@ -205,11 +204,17 @@ public class HomePage {
 
 			stage.setScene(new Scene(viewAllStaff.getBp(), 600, 600));
 		});
-
+		
 		viewPcDetail.setOnAction(e -> {
 			viewAllPc(role);
 		});
 		manageJob.getItems().add(manageJobItem);
+		
+		manageJobItem.setOnAction(e -> {
+			ViewAllJob viewAllJob = new ViewAllJob(stage, role, id);
+			
+			stage.setScene(new Scene(viewAllJob.getBp(), 600, 600));
+		});
 	}
 
 	public void initOperatorHomePage(Stage stage, String role, int id) {
@@ -222,7 +227,7 @@ public class HomePage {
 
 		viewBookedPcItem = new MenuItem("View Booked PC");
 		makeReportItem = new MenuItem("Make Report");
-		viewPcDetail = new MenuItem("View PC Detail");
+		viewAllPcItem = new MenuItem("View All PC");
 
 		navbar.getMenus().add(viewAllPc);
 		navbar.getMenus().add(viewBookedPc);
@@ -230,7 +235,7 @@ public class HomePage {
 
 		viewBookedPc.getItems().add(viewBookedPcItem);
 		makeReport.getItems().add(makeReportItem);
-		viewAllPc.getItems().add(viewPcDetail);
+		viewAllPc.getItems().add(viewAllPcItem);
 
 		makeReportItem.setOnAction(event -> {
 			MakeReportForm makeReportForm = new MakeReportForm(stage, role, id);
@@ -238,7 +243,7 @@ public class HomePage {
 			stage.setScene(new Scene(makeReportForm.getBp(), 600, 600));
 		});
 
-		viewPcDetail.setOnAction(e -> {
+		viewAllPcItem.setOnAction(e -> {
 			viewAllPc(role);
 		});
 	}
@@ -250,15 +255,15 @@ public class HomePage {
 		viewAllPc = new Menu("View All PC");
 		viewJob = new Menu("View Job");
 		viewJobItem = new MenuItem("View Job Item");
-		viewPcDetail = new MenuItem("View PC Detail");
+		viewAllPcItem = new MenuItem("View All PC");
 
 		navbar.getMenus().add(viewAllPc);
 		navbar.getMenus().add(viewJob);
 
 		viewJob.getItems().add(viewJobItem);
-		viewAllPc.getItems().add(viewPcDetail);
+		viewAllPc.getItems().add(viewAllPcItem);
 
-		viewPcDetail.setOnAction(e -> {
+		viewAllPcItem.setOnAction(e -> {
 			viewAllPc(role);
 		});
 	}

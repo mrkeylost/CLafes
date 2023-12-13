@@ -41,15 +41,21 @@ public class PcController {
 		return pcData;
 	}
 	
-	public boolean addNewPc(String id) {
+	public void addNewPc(String id) {
+		
+		if(id.isEmpty()) {
+			alert("Id cannot be empty");
+			
+			return;
+		}
 		if(!isUniquePCId(id)) {
 			alert("Pc Id must be unique");
 			
-			return false;
+			return;
 		}
 		
 		pcModel.addNewPC(id);
-		return true;
+
 	}
 	
 	public Boolean isUniquePCId(String id) {
@@ -121,4 +127,5 @@ public class PcController {
 		pcModel.deletePc(id);
 		return true;
 	}
+	
 }

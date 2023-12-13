@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import database.Connect;
 
@@ -31,6 +32,7 @@ public class UserModel {
 		return db.selectData(query);
 	}
 	
+	
 	public ResultSet getStaffList() {
 		
 		String query = "SELECT UserId, UserName, UserRole FROM users WHERE UserRole != 'Customer'";
@@ -38,10 +40,29 @@ public class UserModel {
 		return db.selectData(query);
 	}
 	
-	public void ChangeUserRole(int userId, String RoleName) {
-		String query = String.format("UPDATE users SET UserRole = '%s' WHERE UserId = %d", RoleName, userId);
+	public void ChangeUserRole(String userId, String RoleName) {
+		String query = String.format("UPDATE users SET UserRole = '%s' WHERE UserId = %d", RoleName, Integer.parseInt(userId));
 		
 		 db.execUpdate(query);
 	}
+	
+	public Boolean isRoleTechnician(String userId) {
+		String query = String.format("SELECT UserRole FROM users WHERE UserId = %d", Integer.parseInt(userId));
+		
+		ResultSet rs = db.selectData(query);
+		
+		String role = "";
+		
+		try {
+			while(rs.next()) {
+				role = rs.getString("UserRole");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return role.equals("Computer Technician") ? true : false;
+	}
+	
 	
 }

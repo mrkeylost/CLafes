@@ -15,6 +15,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
@@ -25,14 +26,17 @@ import model.User;
 public class ViewAllStaff {
 	UserController staff = new UserController();
 	BorderPane bp;
-	Button choose, back;
+	Button choose, back, changeRole;
 	VBox container;
+	TextField selected;
 	ComboBox<String> roles;
 	TableView<User> userView;
+	TableColumn<User, Integer> userId;
 	TableColumn<User, String> userName;
 	TableColumn<User, String> userRole;
 	TableColumn<User, Void> changeRoleColumn;
 	List<User> staffData;
+	String selectedUserId = "";
 
 	public ViewAllStaff(Stage stage, String role, int id) {
 		bp = new BorderPane();
@@ -40,6 +44,9 @@ public class ViewAllStaff {
 		container.setAlignment(Pos.TOP_LEFT);
 
 		back = new Button("Back to Home");
+		changeRole = new Button("Change Role");
+		selected = new TextField();
+		selected.setEditable(false);
 		back.setOnMouseClicked(event -> {
 
 			HomePage homePage = new HomePage(stage, role, id);
@@ -48,72 +55,55 @@ public class ViewAllStaff {
 		});
 
 		userView = new TableView<>();
-
+		
+		userId = new TableColumn<>("User Id");
+		userId.setCellValueFactory(new PropertyValueFactory<>("userId"));
+		
 		userName = new TableColumn<>("User Name");
 		userName.setCellValueFactory(new PropertyValueFactory<>("userName"));
 
 		userRole = new TableColumn<>("User Role");
 		userRole.setCellValueFactory(new PropertyValueFactory<>("userRole"));
 
-		changeRoleColumn = new TableColumn<>("Change Role");
-		changeRoleColumn.setCellFactory(param -> new ButtonCell());
-
+		userView.getColumns().add(userId);
 		userView.getColumns().add(userName);
 		userView.getColumns().add(userRole);
-		userView.getColumns().add(changeRoleColumn);
+		
 		staffData = staff.getAllStaff();
 
 		ObservableList<User> staffDataList = FXCollections.observableArrayList(staffData);
 		userView.setItems(staffDataList);
-		container.getChildren().addAll(back, userView);
+		container.getChildren().addAll(back, userView, selected, changeRole);
 		bp.setCenter(container);
+		
+		userView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+			if(newValue != null) {
+				Integer selectedIndex = userView.getSelectionModel().getSelectedIndex();
+				if(selectedIndex != null) {
+					selectedUserId= staffData.get(selectedIndex).getUserId().toString();
+					selected.setText(selectedUserId);
+				}
+			}
+		});
+		
+		changeRole.setOnAction(e -> {
+			new ChangeRoleForm(selected.getText());
+			selected.setText("");
+			selectedUserId = "";
+			refreshView();
+		});
 	}
 
 	public BorderPane getBp() {
 		return bp;
 	}
 
-	private class ButtonCell extends TableCell<User, Void> {
-		private final Button changeButton = new Button("Change");
-		String newRole;
-		int userId;
-
-		ButtonCell() {
-
-			changeButton.setOnAction(event -> {
-				User user = getTableView().getItems().get(getIndex());
-				userId = user.getUserId();
-				newRole = user.getUserRole();
-				TextInputDialog dialog = new TextInputDialog(user.getUserRole());
-				dialog.setTitle("Change Role");
-				dialog.setHeaderText("Enter new role:");
-				dialog.setContentText("Role:");
-
-				Optional<String> result = dialog.showAndWait();
-				result.ifPresent(newRole -> {
-					if(staff.ChangeRoleUser(userId, newRole)) {
-						refreshView();
-					}
-				});
-			});
-		}
-
-		@Override
-		protected void updateItem(Void item, boolean empty) {
-			super.updateItem(item, empty);
-			if (empty) {
-				setGraphic(null);
-			} else {
-				setGraphic(changeButton);
-			}
-		}
-
-		private void refreshView() {
-			// Refresh the data and update the TableView
-			staffData.clear();
-			staffData.addAll(staff.getAllStaff());
-			userView.getItems().setAll(staffData);
-		}
+	private void refreshView() {
+		// Refresh the data and update the TableView
+		staffData.clear();
+		staffData.addAll(staff.getAllStaff());
+		userView.getItems().setAll(staffData);
 	}
+	
 
 }

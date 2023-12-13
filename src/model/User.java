@@ -2,22 +2,22 @@ package model;
 
 public class User {
 
-	private int userId;
+	private Integer userId;
 	private String userName;
 	private String userRole;
-
-	public User(int userId, String userName, String userRole) {
+	
+	public User(Integer userId, String userName, String userRole) {
 		super();
 		this.userId = userId;
 		this.userName = userName;
 		this.userRole = userRole;
 	}
 
-	public int getUserId() {
+	public Integer getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 
@@ -36,5 +36,7 @@ public class User {
 	public void setUserRole(String userRole) {
 		this.userRole = userRole;
 	}
+
+	
 
 }
