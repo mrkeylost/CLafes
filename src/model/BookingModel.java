@@ -63,4 +63,17 @@ public class BookingModel {
 		return db.selectData(query);
 	}
 	
+	public Boolean assignUserToAnotherPc(String newPcId, String bookId) {
+		String query = "UPDATE pcbook SET PcId = '"+ newPcId +"' WHERE BookId = '"+ bookId + "'";
+		
+		db.execute(query);
+		return true;
+	}
+	
+	public ResultSet getBookDataById(String bookId) {
+		String query = "SELECT * FROM `pcbook` WHERE BookId = '" + bookId + "'";
+		
+		return db.selectData(query);
+	}
+	
 }
