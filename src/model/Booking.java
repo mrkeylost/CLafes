@@ -2,7 +2,7 @@ package model;
 
 public class Booking {
 	private int bookId, pcId;
-	String userName, bookedDate;
+	private String userName, bookedDate;
 	
 	public Booking(int bookId, int pcId, String userName, String bookedDate) {
 		super();

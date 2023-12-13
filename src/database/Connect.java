@@ -60,15 +60,6 @@ public class Connect {
 		}
 	}
 	
-	public void execUpdate(String query) {
-		try {
-			st.executeUpdate(query);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
 	public PreparedStatement preparedStatement(String query) {
 		PreparedStatement ps = null;
 		try {

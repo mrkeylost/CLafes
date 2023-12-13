@@ -10,8 +10,8 @@ import java.util.Vector;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import model.BookingModel;
 import model.Booking;
+import model.BookingModel;
 import model.PcModel;
 import model.TransactionModel;
 import model.UserModel;
@@ -55,27 +55,6 @@ public class BookingController {
 		return bookingModel.bookPc(pcId, userId, date);
 	}
 	
-	public Boolean checkPc(String pcId) {
-		
-		ResultSet rs =  pcModel.viewAllPc();
-		
-		try {
-			while(rs.next()) {
-				Integer pcIdCheck = rs.getInt("PcId");
-				String pcStatus = rs.getString("PcStatus"); 
-				
-				if(pcId.equals(pcIdCheck.toString()) && pcStatus.equals("Usable")) {
-					return true;
-				}
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return false;
-	}
-	
 	public List<Booking> getAllPcBookedData() {
 		
 		List<Booking> pcBookedData = new Vector<Booking>();
@@ -92,6 +71,7 @@ public class BookingController {
 				pcBookedData.add(new Booking(bookId, pcId, userName, bookedDate));
 			}
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -135,6 +115,50 @@ public class BookingController {
 		return false;
 	}
 	
+	public Boolean checkCancelBookingDate(String bookId) {
+		
+		ResultSet rs = bookingModel.getAllPcBookedData();
+		
+		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		
+		try {
+			while(rs.next()) {
+				Integer bookIdCheck = rs.getInt("BookId");
+				String bookDateCheck = rs.getDate("BookedDate").toString();
+				
+				if(bookId.equals(bookIdCheck.toString()) && LocalDate.parse(bookDateCheck, dateFormat).isBefore(LocalDate.now())) {
+					return false;
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return true;
+	}
+	
+	public Boolean checkPc(String pcId) {
+		
+		ResultSet rs =  pcModel.viewAllPc();
+		
+		try {
+			while(rs.next()) {
+				Integer pcIdCheck = rs.getInt("PcId");
+				String pcStatus = rs.getString("PcStatus"); 
+				
+				if(pcId.equals(pcIdCheck.toString()) && pcStatus.equals("Usable")) {
+					return true;
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
 	public Boolean checkBookingdate(String id, String date) {
 		
 		ResultSet rs = bookingModel.getBookingDate(id, date);
@@ -151,26 +175,6 @@ public class BookingController {
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return true;
-	}
-	
-	public Boolean checkCancelBookingDate(String bookId) {
-		ResultSet rs = bookingModel.getAllPcBookedData();
-		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		
-		try {
-			while(rs.next()) {
-				Integer bookIdCheck = rs.getInt("BookId");
-				String bookDateCheck = rs.getDate("BookedDate").toString();
-				
-				if(bookId.equals(bookIdCheck.toString()) && LocalDate.parse(bookDateCheck, dateFormat).isBefore(LocalDate.now())) {
-					return false;
-				}
-			}
-		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
