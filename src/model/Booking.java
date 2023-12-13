@@ -1,49 +1,47 @@
 package model;
 
 public class Booking {
-
-	private Integer bookId;
-	private Integer pcId;
-	private String userName;
-	private String bookedTime;
+	private int bookId, pcId;
+	private String userName, bookedDate;
 	
-	public Booking(Integer bookId, Integer pcId, String userName, String bookedTime) {
+	public Booking(int bookId, int pcId, String userName, String bookedDate) {
 		super();
 		this.bookId = bookId;
 		this.pcId = pcId;
 		this.userName = userName;
-		this.bookedTime = bookedTime;
+		this.bookedDate = bookedDate;
 	}
-
-	public Integer getBookId() {
+	
+	public int getBookId() {
 		return bookId;
 	}
-
-	public void setBookId(Integer bookId) {
+	
+	public void setBookId(int bookId) {
 		this.bookId = bookId;
 	}
-
-	public Integer getPcId() {
+	
+	public int getPcId() {
 		return pcId;
 	}
-
-	public void setPcId(Integer pcId) {
+	
+	public void setPcId(int pcId) {
 		this.pcId = pcId;
 	}
-
+	
 	public String getUserName() {
 		return userName;
 	}
-
+	
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-
-	public String getBookedTime() {
-		return bookedTime;
+	
+	public String getBookedDate() {
+		return bookedDate;
 	}
-
-	public void setBookedTime(String bookedTime) {
-		this.bookedTime = bookedTime;
+	
+	public void setBookedDate(String bookedDate) {
+		this.bookedDate = bookedDate;
 	}
+	
 }

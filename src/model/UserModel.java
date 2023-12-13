@@ -31,4 +31,11 @@ public class UserModel {
 		return db.selectData(query);
 	}
 	
+	public ResultSet getStaffData(Integer id) {
+
+		String query = "SELECT * FROM `users` WHERE UserId = '" + id + "'";
+
+		return db.selectData(query);
+	}
+	
 }

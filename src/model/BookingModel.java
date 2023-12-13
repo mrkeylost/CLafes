@@ -35,7 +35,6 @@ public class BookingModel {
 						"JOIN users u \r\n" + 
 						"ON pb.UserId = u.UserId";
 		
-		
 		return db.selectData(query);
 	}
 	
@@ -46,6 +45,22 @@ public class BookingModel {
 		db.execute(query);
 		
 		return true;
+	}
+	
+	public Boolean deleteBookDataByDate(String date) {
+		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String query = "DELETE FROM `pcbook` WHERE BookedDate = '" + LocalDate.parse(date, dateFormat) + "'";
+		
+		db.execute(query);
+		
+		return true;
+	}
+	
+	public ResultSet getBookDateToFinish(String date) {
+		
+		String query = "SELECT * FROM `pcbook` WHERE BookedDate = '" + date + "'";
+		
+		return db.selectData(query);
 	}
 	
 }

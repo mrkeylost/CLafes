@@ -20,6 +20,7 @@ import model.Pc;
 public class HomePage{
 
 	PcController pcController =  new PcController();
+	
 	Stage stage;
 	Scene scene;
 	BorderPane bp;
@@ -152,10 +153,9 @@ public class HomePage{
 		viewBookedPc.getItems().add(viewBookedPcItem);
 		makeReport.getItems().add(makeReportItem);
 		
-		viewBookedPcItem.setOnAction(event ->{
-			ViewBookedPC viewAllBookedPC = new ViewBookedPC(stage, role, id);
-			
-			stage.setScene(new Scene(viewAllBookedPC.getBp(), 600, 600));
+		viewBookedPcItem.setOnAction(event -> {
+			ViewBookedPC viewBookedPc = new ViewBookedPC(stage, role, id);
+			stage.setScene(new Scene(viewBookedPc.getBp(), 600, 600));
 		});
 		
 		makeReportItem.setOnAction(event ->{
