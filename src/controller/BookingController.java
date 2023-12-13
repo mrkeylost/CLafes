@@ -266,4 +266,41 @@ public class BookingController {
 		
 		return true;
 	}
+	
+	public Boolean assignUserToAnotherPc(String newPcId, String bookId) {
+		if(!checkPc(newPcId)) {
+			alert("PC is not operationable!");
+
+			return false;
+		}
+		
+		if(!checkBookIdValid(bookId)) {
+			alert("Booking ID not found");
+			
+			return false;
+		}
+		
+		String bookDate = getBookDateById(bookId);
+		if(!checkBookingdate(newPcId, bookDate)) {
+			alert("PC already booked");
+			
+			return false;
+		}
+		
+		return bookingModel.assignUserToAnotherPc(newPcId, bookId);
+	}
+	
+	private String getBookDateById(String bookId) {
+		ResultSet rs = bookingModel.getBookDataById(bookId);
+		
+		try {
+			if (rs.next()) {
+				return rs.getDate("BookedDate").toString();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return "";
+	}
 }
