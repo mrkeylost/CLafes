@@ -187,17 +187,21 @@ public class HomePage {
 		manageJob = new Menu("Manage Job");
 		manageJobItem = new MenuItem("Manage Job");
 		viewAllStaff = new Menu("View All Staff");
+		viewTransactionHistory = new Menu("View Transaction History");
 		
 		viewAllPcItem = new MenuItem("View All PC");
 		viewPcDetail = new MenuItem("View PC Detail");
 		viewAllStaffItem = new MenuItem("View All Staff");
-
+		viewTransactionHistoryItem = new MenuItem("View Transaction History");
+		
 		navbar.getMenus().add(viewAllPc);
 		navbar.getMenus().add(manageJob);
 		navbar.getMenus().add(viewAllStaff);
+		navbar.getMenus().add(viewTransactionHistory);
 
 		viewAllStaff.getItems().add(viewAllStaffItem);
 		viewAllPc.getItems().add(viewPcDetail);
+		viewTransactionHistory.getItems().add(viewTransactionHistoryItem);
 
 		viewAllStaffItem.setOnAction(e -> {
 			ViewAllStaff viewAllStaff = new ViewAllStaff(stage, role, id);
@@ -214,6 +218,12 @@ public class HomePage {
 			ViewAllJob viewAllJob = new ViewAllJob(stage, role, id);
 			
 			stage.setScene(new Scene(viewAllJob.getBp(), 600, 600));
+		});
+		
+		viewTransactionHistoryItem.setOnAction(e -> {
+			ViewAdminTransactionHistory viewAdminTH = new ViewAdminTransactionHistory(stage, role, id);
+			
+			stage.setScene(new Scene(viewAdminTH.getBp(), 600, 600));
 		});
 	}
 

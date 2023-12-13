@@ -19,4 +19,10 @@ public class TransactionModel {
 		return db.selectData(query);
 	}
 	
+	public ResultSet getTransactionDetail(String transactionId) {
+		String query = String.format("SELECT * FROM `trdetail` WHERE TransactionId = %d", Integer.parseInt(transactionId));
+		
+		return db.selectData(query);
+	}
+	
 }
