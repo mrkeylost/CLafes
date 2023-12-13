@@ -65,7 +65,7 @@ public class ViewCustomerTransactionHistory {
 		
 		back.setOnMouseClicked(event ->{
 			
-			HomePage homePage = new HomePage(stage, "Admin", id);
+			HomePage homePage = new HomePage(stage, role, id);
 				
 			stage.setScene(new Scene(homePage.getBp(), 600, 600));
 		});

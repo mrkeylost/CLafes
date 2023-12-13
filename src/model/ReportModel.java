@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.ResultSet;
 import java.time.LocalDateTime;
 
 import database.Connect;
@@ -15,6 +16,14 @@ public class ReportModel {
 		db.execute(query);
 		
 		return true;
+	}
+	
+	public ResultSet getAllReportData() {
+		
+		String query = "SELECT * FROM report";
+		
+		return db.selectData(query);
+		
 	}
 	
 }

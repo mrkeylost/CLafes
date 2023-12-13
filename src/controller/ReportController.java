@@ -2,10 +2,14 @@ package controller;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
+import java.util.List;
+import java.util.Vector;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import model.PcModel;
+import model.Report;
 import model.ReportModel;
 
 public class ReportController {
@@ -56,5 +60,28 @@ public class ReportController {
 		}
 		
 		return false;
+	}
+	
+	public List<Report> getAllReportData() {
+		
+		Vector<Report> reportList = new Vector<>();
+		
+		ResultSet rs = reportModel.getAllReportData();
+		
+		try {
+			while(rs.next()) {
+				Integer reportId = rs.getInt("ReportId");
+				Integer pcId = rs.getInt("PcId");
+				String reportNote = rs.getString("ReportNote");
+				Date reportDate = rs.getDate("ReportDate");
+				String userRole = rs.getString("UserRole");
+				
+				reportList.add(new Report(reportId, pcId, reportNote, reportDate, userRole));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return reportList;
 	}
 }

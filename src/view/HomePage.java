@@ -188,20 +188,24 @@ public class HomePage {
 		manageJobItem = new MenuItem("Manage Job");
 		viewAllStaff = new Menu("View All Staff");
 		viewTransactionHistory = new Menu("View Transaction History");
+		makeReport = new Menu("View All Report");
 		
 		viewAllPcItem = new MenuItem("View All PC");
 		viewPcDetail = new MenuItem("View PC Detail");
 		viewAllStaffItem = new MenuItem("View All Staff");
 		viewTransactionHistoryItem = new MenuItem("View Transaction History");
+		makeReportItem = new MenuItem("View All Report");
 		
 		navbar.getMenus().add(viewAllPc);
 		navbar.getMenus().add(manageJob);
 		navbar.getMenus().add(viewAllStaff);
 		navbar.getMenus().add(viewTransactionHistory);
+		navbar.getMenus().add(makeReport);
 
 		viewAllStaff.getItems().add(viewAllStaffItem);
 		viewAllPc.getItems().add(viewPcDetail);
 		viewTransactionHistory.getItems().add(viewTransactionHistoryItem);
+		makeReport.getItems().add(makeReportItem);
 
 		viewAllStaffItem.setOnAction(e -> {
 			ViewAllStaff viewAllStaff = new ViewAllStaff(stage, role, id);
@@ -224,6 +228,12 @@ public class HomePage {
 			ViewAdminTransactionHistory viewAdminTH = new ViewAdminTransactionHistory(stage, role, id);
 			
 			stage.setScene(new Scene(viewAdminTH.getBp(), 600, 600));
+		});
+		
+		makeReportItem.setOnAction(e -> {
+			ViewAllReport viewReport = new ViewAllReport(stage, role, id);
+			
+			stage.setScene(new Scene(viewReport.getBp(), 600, 600));
 		});
 	}
 
