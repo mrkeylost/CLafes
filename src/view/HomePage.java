@@ -259,7 +259,7 @@ public class HomePage {
 		viewBookedPcItem = new MenuItem("View Booked PC");
 		makeReportItem = new MenuItem("Make Report");
 		viewAllPcItem = new MenuItem("View All PC");
-
+		
 		navbar.getMenus().add(viewAllPc);
 		navbar.getMenus().add(viewBookedPc);
 		navbar.getMenus().add(makeReport);

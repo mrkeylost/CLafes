@@ -70,4 +70,25 @@ public class UserModel {
 		return role.equals("Computer Technician") ? true : false;
 	}
 	
+	public Boolean isTechnicianBeingAssigned(String userId) {
+		String query = String.format("SELECT JobStatus FROM `job` WHERE UserId = %d", Integer.parseInt(userId));
+		
+		ResultSet rs = db.selectData(query);
+		
+		try {
+			while(rs.next()) {
+				String status = rs.getString("JobStatus");
+				
+				if(status.equals("UnComplete")) {
+					return true;
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
 }

@@ -36,9 +36,14 @@ public class PcModel {
 	}
 	
 	public void deletePc(String id) {
-		String query1 = String.format("DELETE FROM `pcbook` WHERE `pcbook`.`PcId` = %d", Integer.parseInt(id));
-		String query2 = String.format("DELETE FROM `pc` WHERE `pc`.`PcId` = %d", Integer.parseInt(id));
+		String query1 = String.format("DELETE FROM `report` WHERE `report`.`PcId` = %d", Integer.parseInt(id));
+		String query2 = String.format("DELETE FROM `job` WHERE `job`.`PcId` = %d", Integer.parseInt(id));
+		String query3 = String.format("DELETE FROM `pcbook` WHERE `pcbook`.`PcId` = %d", Integer.parseInt(id));
+		String query4 = String.format("DELETE FROM `pc` WHERE `pc`.`PcId` = %d", Integer.parseInt(id));
+				
 		db.execute(query1);
 		db.execute(query2);
+		db.execute(query3);
+		db.execute(query4);
 	}
 }

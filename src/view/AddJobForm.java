@@ -2,6 +2,7 @@ package view;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.Dialog;
 
@@ -19,7 +20,7 @@ public class AddJobForm extends Dialog<String[]> {
     JobController jobController = new JobController();
     
     public AddJobForm() {
-    	
+
         setTitle("Add Job Form");
 
         Label userIdLabel = new Label("User ID:");

@@ -159,6 +159,12 @@ public class UserController {
 			return;
 		}
 		
+		if(userModel.isTechnicianBeingAssigned(userId)) {
+			alert("You can't change the role of a technician who's working");
+			
+			return;
+		}
+		
 		if(!roleName.equals("Admin") && !roleName.equals("Operator") && !roleName.equals("Computer Technician")) {
 			alert("Role must be either “Admin”, “Operator”, or “Computer Technician” ");
 			return;
