@@ -48,9 +48,9 @@ public class ReportController {
 		try {
 			while(rs.next()) {
 				Integer pcIdCheck = rs.getInt("PcId");
-				String pcAvailability = rs.getString("PcAvailability");
+				String pcStatus = rs.getString("PcStatus");
 				
-				if(pcId.equals(pcIdCheck.toString()) && pcAvailability.equals("ON")) {
+				if(pcId.equals(pcIdCheck.toString()) && pcStatus.equals("Usable")) {
 					return true;
 				}
 			}

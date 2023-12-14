@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 import controller.ReportController;
-import controller.TransactionController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
@@ -16,7 +15,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Report;
-import model.Transaction;
 
 public class ViewAllReport {
 

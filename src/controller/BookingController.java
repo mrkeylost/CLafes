@@ -86,7 +86,7 @@ public class BookingController {
 			return false;
 		}
 		
-		if(!checkCancelBookingDate(bookId)) {
+		if(!checkBookingDateisBefore(bookId)) {
 			alert("Booking date already passed today");
 			
 			return false;
@@ -115,7 +115,7 @@ public class BookingController {
 		return false;
 	}
 	
-	public Boolean checkCancelBookingDate(String bookId) {
+	public Boolean checkBookingDateisBefore(String bookId) {
 		
 		ResultSet rs = bookingModel.getAllPcBookedData();
 		
@@ -283,6 +283,12 @@ public class BookingController {
 		String bookDate = getBookDateById(bookId);
 		if(!checkBookingdate(newPcId, bookDate)) {
 			alert("PC already booked");
+			
+			return false;
+		}
+		
+		if(!checkBookingDateisBefore(bookId)) {
+			alert("Booking date already passed today");
 			
 			return false;
 		}
