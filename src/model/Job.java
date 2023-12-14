@@ -1,6 +1,7 @@
 package model;
 
 public class Job {
+
 	private Integer jobId;
 	private Integer userId;
 	private Integer pcId;
@@ -10,6 +11,14 @@ public class Job {
 		super();
 		this.jobId = jobId;
 		this.userId = userId;
+		this.pcId = pcId;
+		this.jobStatus = jobStatus;
+	}
+
+	
+	public Job(Integer jobId, Integer pcId, String jobStatus) {
+		super();
+		this.jobId = jobId;
 		this.pcId = pcId;
 		this.jobStatus = jobStatus;
 	}
@@ -45,5 +54,4 @@ public class Job {
 	public void setJobStatus(String jobStatus) {
 		this.jobStatus = jobStatus;
 	}
-
 }

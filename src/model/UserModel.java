@@ -32,6 +32,12 @@ public class UserModel {
 		return db.selectData(query);
 	}
 	
+	public ResultSet getStaffData(Integer id) {
+
+		String query = "SELECT * FROM `users` WHERE UserId = '" + id + "'";
+
+		return db.selectData(query);
+	}
 	
 	public ResultSet getStaffList() {
 		
@@ -43,7 +49,7 @@ public class UserModel {
 	public void ChangeUserRole(String userId, String RoleName) {
 		String query = String.format("UPDATE users SET UserRole = '%s' WHERE UserId = %d", RoleName, Integer.parseInt(userId));
 		
-		 db.execUpdate(query);
+		 db.execute(query);
 	}
 	
 	public Boolean isRoleTechnician(String userId) {
@@ -63,6 +69,5 @@ public class UserModel {
 		}
 		return role.equals("Computer Technician") ? true : false;
 	}
-	
 	
 }

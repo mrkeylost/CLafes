@@ -29,4 +29,51 @@ public class BookingModel {
 		return db.selectData(query);
 	}
 	
+	public ResultSet getAllPcBookedData() {
+		
+		String query = 	"SELECT pb.BookId, pb.PcId, u.UserName, pb.BookedDate FROM pcbook pb\r\n" + 
+						"JOIN users u \r\n" + 
+						"ON pb.UserId = u.UserId";
+		
+		return db.selectData(query);
+	}
+	
+	public Boolean deleteBookData(String bookId) {
+		
+		String query = "DELETE FROM `pcbook` WHERE BookId = '" + Integer.parseInt(bookId) + "'";
+		
+		db.execute(query);
+		
+		return true;
+	}
+	
+	public Boolean deleteBookDataByDate(String date) {
+		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String query = "DELETE FROM `pcbook` WHERE BookedDate = '" + LocalDate.parse(date, dateFormat) + "'";
+		
+		db.execute(query);
+		
+		return true;
+	}
+	
+	public ResultSet getBookDateToFinish(String date) {
+		
+		String query = "SELECT * FROM `pcbook` WHERE BookedDate = '" + date + "'";
+		
+		return db.selectData(query);
+	}
+	
+	public Boolean assignUserToAnotherPc(String newPcId, String bookId) {
+		String query = "UPDATE pcbook SET PcId = '"+ newPcId +"' WHERE BookId = '"+ bookId + "'";
+		
+		db.execute(query);
+		return true;
+	}
+	
+	public ResultSet getBookDataById(String bookId) {
+		String query = "SELECT * FROM `pcbook` WHERE BookId = '" + bookId + "'";
+		
+		return db.selectData(query);
+	}
+	
 }

@@ -19,13 +19,13 @@ public class PcModel {
 	public void addNewPC(String id) {
 		String query = String.format("INSERT INTO `pc`(`PcId`, `PcStatus`) VALUES (%d,'Usable')", Integer.parseInt(id));
 		
-		db.execUpdate(query);
+		db.execute(query);
 	}
 	
 	public void updatePC(String status, String id) {
 		String query = String.format("UPDATE pc SET PcStatus = '%s' WHERE PcId = %d", status, Integer.parseInt(id));
 		
-		db.execUpdate(query);
+		db.execute(query);
 	}
 	
 	public ResultSet checkBookedPC(String id) {
@@ -38,7 +38,7 @@ public class PcModel {
 	public void deletePc(String id) {
 		String query1 = String.format("DELETE FROM `pcbook` WHERE `pcbook`.`PcId` = %d", Integer.parseInt(id));
 		String query2 = String.format("DELETE FROM `pc` WHERE `pc`.`PcId` = %d", Integer.parseInt(id));
-		db.execUpdate(query1);
-		db.execUpdate(query2);
+		db.execute(query1);
+		db.execute(query2);
 	}
 }

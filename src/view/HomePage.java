@@ -2,26 +2,37 @@ package view;
 
 import java.util.List;
 
+import controller.BookingController;
 import controller.PcController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import model.Pc;
 
 public class HomePage {
 
 	PcController pcController = new PcController();
+	BookingController bookingController = new BookingController();
+	
 	Stage stage;
 	Scene scene;
 	BorderPane bp;
@@ -256,13 +267,18 @@ public class HomePage {
 		viewBookedPc.getItems().add(viewBookedPcItem);
 		makeReport.getItems().add(makeReportItem);
 		viewAllPc.getItems().add(viewAllPcItem);
-
-		makeReportItem.setOnAction(event -> {
+		
+		viewBookedPcItem.setOnAction(event -> {
+			ViewBookedPC viewBookedPc = new ViewBookedPC(stage, role, id);
+			stage.setScene(new Scene(viewBookedPc.getBp(), 600, 700));
+		});
+		
+		makeReportItem.setOnAction(event ->{
 			MakeReportForm makeReportForm = new MakeReportForm(stage, role, id);
-
+			
 			stage.setScene(new Scene(makeReportForm.getBp(), 600, 600));
 		});
-
+		
 		viewAllPcItem.setOnAction(e -> {
 			viewAllPc(role);
 		});
@@ -276,13 +292,19 @@ public class HomePage {
 		viewJob = new Menu("View Job");
 		viewJobItem = new MenuItem("View Job Item");
 		viewAllPcItem = new MenuItem("View All PC");
-
+		
 		navbar.getMenus().add(viewAllPc);
 		navbar.getMenus().add(viewJob);
 
 		viewJob.getItems().add(viewJobItem);
 		viewAllPc.getItems().add(viewAllPcItem);
-
+		
+		viewJobItem.setOnAction(event ->{
+			ViewTechnicianJob viewTechnicianJob = new ViewTechnicianJob(stage, id, role);
+			
+			stage.setScene(new Scene(viewTechnicianJob.getBp(), 600, 600));
+		});
+		
 		viewAllPcItem.setOnAction(e -> {
 			viewAllPc(role);
 		});

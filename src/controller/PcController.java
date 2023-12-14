@@ -127,5 +127,4 @@ public class PcController {
 		pcModel.deletePc(id);
 		return true;
 	}
-	
 }
