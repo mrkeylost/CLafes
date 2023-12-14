@@ -45,10 +45,10 @@ public class ViewCustomerTransactionHistory {
 		
 		viewCustomerHistory.getColumns().add(colTrId);
 		viewCustomerHistory.getColumns().add(colPcId);
-		viewCustomerHistory.getColumns().add(colBookedTime);
-		
+		viewCustomerHistory.getColumns().add(colBookedTime);		
+
 		transacionHistoryData = transactionController.getUserTransactionDetail(id.toString());
-		
+
 		ObservableList<Transaction> transactionDataList = FXCollections.observableArrayList(transacionHistoryData);
 		viewCustomerHistory.setItems(transactionDataList);
 		
@@ -66,7 +66,7 @@ public class ViewCustomerTransactionHistory {
 		back.setOnMouseClicked(event ->{
 			
 			HomePage homePage = new HomePage(stage, role, id);
-			
+				
 			stage.setScene(new Scene(homePage.getBp(), 600, 600));
 		});
 	}
