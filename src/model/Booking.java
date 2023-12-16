@@ -1,5 +1,6 @@
 package model;
 
+// Class untuk menyimpan data booking
 public class Booking {
 	private int bookId, pcId;
 	private String userName, bookedDate;

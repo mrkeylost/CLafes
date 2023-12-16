@@ -17,6 +17,7 @@ public class ReportController {
 	ReportModel reportModel = new ReportModel();
 	PcModel pcModel = new PcModel();
 	
+	// alert function apabila terjadi error
 	public void alert(String message) {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Invalid Input");
@@ -24,6 +25,7 @@ public class ReportController {
 		alert.showAndWait();
 	}
 	
+	// method untuk menambahkan report baru dari Customer atau Operator, disini juga akan divalidasi report bagaimana yang valid
 	public Boolean addNewReport(String userRole, String pcId, String reportNote) {
 		
 		if(!checkPc(pcId)) {
@@ -41,6 +43,7 @@ public class ReportController {
 		return reportModel.addNewReport(userRole, pcId, reportNote);
 	}
 	
+	// method untuk mengecek apakah PC terdaftar di database dan Statusnya Usable
 	public Boolean checkPc(String pcId) {
 		
 		ResultSet rs =  pcModel.viewAllPc();
@@ -62,6 +65,7 @@ public class ReportController {
 		return false;
 	}
 	
+	// method untuk mengambil semua data report dari database
 	public List<Report> getAllReportData() {
 		
 		Vector<Report> reportList = new Vector<>();

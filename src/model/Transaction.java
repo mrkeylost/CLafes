@@ -1,5 +1,6 @@
 package model;
 
+// Class untuk menyimpan data Transaction
 public class Transaction {
 
 	private Integer transactionId;

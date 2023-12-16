@@ -23,6 +23,7 @@ public class BookingController {
 	UserModel userModel = new UserModel();
 	TransactionModel transactionModel = new TransactionModel();
 	
+	// alert function apabila terjadi error
 	public void alert(String message) {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Invalid Input");
@@ -30,6 +31,7 @@ public class BookingController {
 		alert.showAndWait();
 	}
 	
+	// method untuk validasi data booking oleh Customer
 	public Boolean bookPc(String pcId, String userId, String date) {
 		
 		if(!checkPc(pcId)) {
@@ -55,6 +57,7 @@ public class BookingController {
 		return bookingModel.bookPc(pcId, userId, date);
 	}
 	
+	// method untuk mengambil semua data booking pc yang ada
 	public List<Booking> getAllPcBookedData() {
 		
 		List<Booking> pcBookedData = new Vector<Booking>();
@@ -78,6 +81,7 @@ public class BookingController {
 		return pcBookedData;
 	}
 	
+	// method untuk menghapus data booking di hari ini atau masa mendatang 
 	public Boolean deleteBookData(String bookId) {
 		
 		if(!checkBookIdValid(bookId)) {
@@ -95,6 +99,7 @@ public class BookingController {
 		return bookingModel.deleteBookData(bookId);
 	}
 	
+	// method untuk mengecek apakah Book ID terdaftar di database
 	public Boolean checkBookIdValid(String bookId) {
 		
 		ResultSet rs = bookingModel.getAllPcBookedData();
@@ -115,6 +120,7 @@ public class BookingController {
 		return false;
 	}
 	
+	// method untuk mengecek apakah tanggal booking sudah lewat atau belum 
 	public Boolean checkBookingDateisBefore(String bookId) {
 		
 		ResultSet rs = bookingModel.getAllPcBookedData();
@@ -138,6 +144,7 @@ public class BookingController {
 		return true;
 	}
 	
+	// method untuk mengecek data PC yang bisa dibooking, yaitu terdaftar di database dan statusnya Usable 
 	public Boolean checkPc(String pcId) {
 		
 		ResultSet rs =  pcModel.viewAllPc();
@@ -159,6 +166,7 @@ public class BookingController {
 		return false;
 	}
 	
+	// method untuk mengecek apakah PC sudah dibooking oleh Customer lain
 	public Boolean checkBookingdate(String id, String date) {
 		
 		ResultSet rs = bookingModel.getBookingDate(id, date);
@@ -181,6 +189,7 @@ public class BookingController {
 		return true;
 	}
 	
+	// method untuk menyelesaikan Booking yang sudah lewat hari ini, disini book data akan dihapus dan ditambahkan ke trheader dan trdetail
 	public Boolean finishBook(String date, Integer staffId) {
 		if (!isExistBookDate(date)) {
 			alert("There is No Book Data on Chosen Date!");
@@ -196,6 +205,7 @@ public class BookingController {
 		return addTransaction(finishedBookings, staffId);
 	}
 	
+	// method untuk mengecek apakah di tanggal itu terdapat data booking 
 	private Boolean isExistBookDate(String date) {
 		ResultSet rs = bookingModel.getBookDateToFinish(date);
 		
@@ -212,6 +222,7 @@ public class BookingController {
 		return false;
 	}
 	
+	// method untuk menyimpan data booking di array penampung dan menghapusnya dari data Booking
 	private ArrayList<Booking> getFinishedBookDate(String date) {
 		ResultSet rs = bookingModel.getAllPcBookedData();
 		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -237,6 +248,7 @@ public class BookingController {
 		return passedBookings;
 	}
 	
+	// method untuk menambahkan data trheader dari data staff dan trdetail dari array yang menampung data booking 
 	private Boolean addTransaction(ArrayList<Booking> passedBookings, Integer staffId) {
 		ResultSet rs = userModel.getStaffData(staffId);
 		
@@ -267,6 +279,7 @@ public class BookingController {
 		return true;
 	}
 	
+	// method untuk memindahkan user ke PC lain yang Usable, belum dibooking Customer lain, dan belum lewat tanggal hari ini 
 	public Boolean assignUserToAnotherPc(String newPcId, String bookId) {
 		if(!checkPc(newPcId)) {
 			alert("PC is not operationable!");
@@ -296,6 +309,7 @@ public class BookingController {
 		return bookingModel.assignUserToAnotherPc(newPcId, bookId);
 	}
 	
+	// method untuk mereturn tanggal booking yang sesuai dengan Book ID tersebut
 	private String getBookDateById(String bookId) {
 		ResultSet rs = bookingModel.getBookDataById(bookId);
 		

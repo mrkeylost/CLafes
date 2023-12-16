@@ -1,5 +1,6 @@
 package model;
 
+// Class untuk menyimpan data job
 public class Job {
 
 	private Integer jobId;

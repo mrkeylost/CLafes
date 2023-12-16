@@ -2,6 +2,7 @@ package model;
 
 import java.util.Date;
 
+// Class untuk menyimpan semua data Transaction Header
 public class TransactionHeader {
 	private Integer TransactionId;
 	private Integer StaffId;

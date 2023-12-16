@@ -2,6 +2,7 @@ package model;
 
 import java.util.Date;
 
+// Class untuk menyimpan data report
 public class Report {
 	private Integer reportId;
 	private Integer pcId;

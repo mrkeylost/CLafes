@@ -1,5 +1,6 @@
 package model;
 
+// Class untuk menyimpan data User
 public class User {
 
 	private Integer userId;

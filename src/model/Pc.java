@@ -1,5 +1,6 @@
 package model;
 
+// Class untuk menyimpan data PC
 public class Pc {
 	
 	private int pcId;

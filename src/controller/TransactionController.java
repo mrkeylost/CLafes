@@ -16,6 +16,7 @@ public class TransactionController {
 	TransactionModel transactionModel = new TransactionModel();
 	TransactionHeaderModel transactionHeaderModel = new TransactionHeaderModel();
 	
+	// method untuk mengambil semua data transaction detail dari satu id customer
 	public List<Transaction> getUserTransactionDetail(String id) {
 		
 		List<Transaction> userTransactionData = new Vector<Transaction>();
@@ -39,6 +40,7 @@ public class TransactionController {
 		return userTransactionData;
 	}
 	
+	// method untuk mengambil data transaction detail dari satu id transaction header
 	public List<Transaction> getTransactionDetail(String id) {
 		
 		List<Transaction> userTransactionData = new Vector<Transaction>();
@@ -62,6 +64,7 @@ public class TransactionController {
 		return userTransactionData;
 	}
 	
+	// method untuk mengambil semua data transaction header yang ada di database
 	public List<TransactionHeader> getTransactionHeader(){
 		List<TransactionHeader> transactionHeaderList = new Vector<TransactionHeader>();
 		

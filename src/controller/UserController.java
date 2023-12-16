@@ -14,6 +14,7 @@ public class UserController {
 
 	UserModel userModel = new UserModel();
 	
+	// alert function apabila terjadi error
 	public void alert(String message) {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Invalid Input");
@@ -21,6 +22,7 @@ public class UserController {
 		alert.showAndWait();
 	}
 	
+	// method boolean untuk validasi register new user 
 	public Boolean registerUser(String name, String password, String confirm, String role, String age) {
 		
 		if(name.isEmpty() || password.isEmpty() || confirm.isEmpty() || age.isEmpty()) {
@@ -71,6 +73,7 @@ public class UserController {
 		return userModel.registerUser(name, password, confirm, role, age);
 	}
 	
+	// method untuk mereturn login user beserta data name dan password ke view 
 	public ResultSet loginUser(String name, String password) {
 		
 		ResultSet rs = userModel.loginUser(name, password);
@@ -78,6 +81,7 @@ public class UserController {
 		return rs;
 	}
 	
+	// method untuk validasi agar user wajib memasukkan username yang unik di database
 	public Boolean checkUniqueUserName(String name) {
 
 		ResultSet rs = userModel.getAllUser();
@@ -98,6 +102,7 @@ public class UserController {
 		return true;
 	}
 	
+	// method untuk mereturn list semua data staff 
 	public List<User> getAllStaff(){
 		
 		Vector<User> staffList = new Vector<>();
@@ -120,6 +125,7 @@ public class UserController {
 		
 	}
 	
+	// method untuk validasi agar user wajib memasukkan user id yang ada di database
 	public Boolean checkUniqeUserId(String userId) {
 
 		ResultSet rs = userModel.getAllUser();
@@ -140,6 +146,8 @@ public class UserController {
 		return true;
 	}
 	
+	// method untuk validasi data staff yang bisa diganti rolenya 
+	// Asumsi apabila COmputer Technician masih memiliki job yang UnComplete, maka role tidak bisa diubah 
 	public void ChangeRoleUser(String userId, String roleName) {
 		if(userId.isEmpty()) {
 			alert("Select the user first!");
@@ -174,6 +182,7 @@ public class UserController {
 		
 	}
 	
+	// method untuk mengecek apakah user tersebut merupakan Computer Technician
 	public Boolean checkRoleTechnician(String userId) {
 		if(!userModel.isRoleTechnician(userId)) {
 			

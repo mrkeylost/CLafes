@@ -14,6 +14,7 @@ public class PcController {
 
 	PcModel pcModel = new PcModel();
 	
+	// alert function apabila terjadi error
 	public void alert(String message) {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Invalid Input");
@@ -21,6 +22,7 @@ public class PcController {
 		alert.showAndWait();
 	}
 	
+	// method untuk mengambil semua data PC yang terdaftar di database
 	public List<Pc> viewAllPc() {
 		List<Pc> pcData = new Vector<Pc>();
 		
@@ -41,6 +43,7 @@ public class PcController {
 		return pcData;
 	}
 	
+	// method untuk menambahkan PC baru ke database
 	public void addNewPc(String id) {
 		
 		if(id.isEmpty()) {
@@ -58,6 +61,7 @@ public class PcController {
 
 	}
 	
+	// method untuk validasi PC harus unik di database
 	public Boolean isUniquePCId(String id) {
 
 		ResultSet rs = pcModel.viewAllPc();
@@ -78,6 +82,7 @@ public class PcController {
 		return true;
 	}
 	
+	// method untuk mengupdate data PC yang terdaftar di database
 	public Boolean updatePC(String status, String id) {
 		if(id.isEmpty()) {
 			alert("Select Pc first");
@@ -100,6 +105,7 @@ public class PcController {
 		return true;
 	}
 	
+	// method untuk menghapus data PC yang terdaftar di database
 	public Boolean deletePC(String id) {
 		if(id.isEmpty()) {
 			alert("Select Pc first");
