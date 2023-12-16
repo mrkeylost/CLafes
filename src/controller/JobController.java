@@ -127,7 +127,7 @@ public class JobController {
 				Integer jobIdCheck = rs.getInt("JobId");
 				String jobStatus = rs.getString("JobStatus"); 
 				
-				if(jobId.equals(jobIdCheck.toString()) && jobStatus.equals("Uncomplete")) {
+				if(jobId.equals(jobIdCheck.toString()) && jobStatus.equals("UnComplete")) {
 					return true;
 				}
 			}
